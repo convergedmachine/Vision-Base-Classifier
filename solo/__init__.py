@@ -18,6 +18,6 @@
 # DEALINGS IN THE SOFTWARE.
 
 
-from solo import args, backbones, data, methods, utils
+from solo import args, data, methods, utils
 
-__all__ = ["args", "backbones", "data", "methods", "utils"]
+__all__ = ["args", "data", "methods", "utils"]

@@ -16,13 +16,13 @@ backbone:
   name: "resnet10t"
 data:
   dataset: radimagenet
-  train_path: "/truba/home/meyavuz/RadImagenet/refined_radiology_ai_1level/train"
-  val_path: "/truba/home/meyavuz/RadImagenet/refined_radiology_ai_1level/val"
+  train_path: "/tmp/meyavuz/RIN/refined_radiology_ai_ss/train"
+  val_path: "/tmp/meyavuz/RIN/refined_radiology_ai_ss/val"
   format: "dali"
   num_workers: 4
 optimizer:
   name: "sgd"
-  batch_size: 512
+  batch_size: 256
   lr: 0.1
   momentum: 0.9
   weight_decay: 1e-4
@@ -39,9 +39,9 @@ auto_resume:
 
 # overwrite PL stuff
 max_epochs: 90
-devices: [0]
+devices: [0, 1]
 linear: False
 sync_batchnorm: True
 accelerator: "gpu"
-strategy: auto
+strategy: "ddp"
 precision: 16-mixed

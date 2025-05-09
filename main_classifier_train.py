@@ -62,6 +62,7 @@ def main(cfg: DictConfig):
         pretrained = False
                 
     backbone = timm.create_model(cfg.backbone.name, pretrained=pretrained)
+    
     # initialize backbone
     if cfg.backbone.name.startswith("resnet"):
         # remove fc layer
