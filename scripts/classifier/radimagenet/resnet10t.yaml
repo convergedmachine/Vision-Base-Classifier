@@ -1,0 +1,47 @@
+defaults:
+  - _self_
+  - wandb: private.yaml
+  - override hydra/hydra_logging: disabled
+  - override hydra/job_logging: disabled
+
+# disable hydra outputs
+hydra:
+  output_subdir: null
+  run:
+    dir: .
+
+name: "base-classifier-resnet10t"
+pretrained_backbone: False
+backbone:
+  name: "resnet10t"
+data:
+  dataset: radimagenet
+  train_path: "/truba/home/meyavuz/RadImagenet/refined_radiology_ai_1level/train"
+  val_path: "/truba/home/meyavuz/RadImagenet/refined_radiology_ai_1level/val"
+  format: "dali"
+  num_workers: 4
+optimizer:
+  name: "sgd"
+  batch_size: 512
+  lr: 0.1
+  momentum: 0.9
+  weight_decay: 1e-4
+scheduler:
+  name: "step"
+  lr_decay_steps: [30, 60]
+  gamma: 0.1
+checkpoint:
+  enabled: True
+  dir: "trained_models"
+  frequency: 1
+auto_resume:
+  enabled: True
+
+# overwrite PL stuff
+max_epochs: 90
+devices: [0]
+linear: False
+sync_batchnorm: True
+accelerator: "gpu"
+strategy: auto
+precision: 16-mixed
